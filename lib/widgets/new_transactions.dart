@@ -31,7 +31,7 @@ class NewTranscaction extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(10),
       child: Card(
-          child: Container(
+       child: Container(
         padding: EdgeInsets.all(10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
@@ -54,7 +54,7 @@ class NewTranscaction extends StatelessWidget {
             FlatButton(
               child: Text("Add Transaction"),
               textColor: Colors.purple,
-              onPressed: () => submitData,
+              onPressed: () => submitData(),
             ),
           ],
         ),
