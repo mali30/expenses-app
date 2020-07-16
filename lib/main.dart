@@ -10,9 +10,10 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         home: new Scaffold(
-            appBar: AppBar(title: Text("Hello Here")),
-            body: SingleChildScrollView(
-                          child: Column(
+            appBar: AppBar(title: Text("Expenses App")),
+            body: ListView(
+              children:<Widget>[
+                 Column(
                 // most important when using columns and rows
                 // mainAxisAlignment: MainAxisAlignment.spaceAround,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -20,6 +21,9 @@ class MyHomePage extends StatelessWidget {
                   UserTransactions()
                 ],
               ),
-            )));
+              ],
+              )
+            )
+          );
   }
 }
