@@ -25,7 +25,8 @@ class TransactionList extends StatelessWidget {
                 border: Border.all(color: Colors.purple, width: 2)),
             padding: EdgeInsets.all(10),
             child: Text(
-              '${tx.amount}',
+              // limits to two decimals places
+              '${tx.amount.toStringAsFixed(2)}',
               style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
