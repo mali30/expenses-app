@@ -3,14 +3,22 @@ import 'package:flutter/material.dart';
 /**
  * This widget is for when we want to add a new transaction. It contains the TextField where we 
  * enter our title and amount.
+ * 
+ * Converting to stateful widget going forward. With this change
+ * the amount and title don't disappear once you click off of it after 
+ * entering the data into the model.
  */
-class NewTranscaction extends StatelessWidget {
-  // will get the final output instead of each keystroke
-  final titleController = TextEditingController();
-  final amountController = TextEditingController();
-
+class NewTranscaction extends StatefulWidget {
   final Function addNewTransaction;
   NewTranscaction(this.addNewTransaction);
+
+  @override
+  _NewTranscactionState createState() => _NewTranscactionState();
+}
+
+class _NewTranscactionState extends State<NewTranscaction> {
+  final titleController = TextEditingController();
+  final amountController = TextEditingController();
 
   void submitData() {
     final entertedTitle = titleController.text;
@@ -19,11 +27,16 @@ class NewTranscaction extends StatelessWidget {
     if (entertedTitle.isEmpty || enteredAmount <= 0) {
       return;
     }
-
-    addNewTransaction(
+  
+  // take the values and pass it to the function.
+    widget.addNewTransaction(
       entertedTitle,
       enteredAmount,
     );
+
+    // Now we use navigator to close the model.
+    // context -> gives navigator metadata. so it knowns what to close
+    Navigator.of(context).pop();
   }
 
   @override
@@ -31,7 +44,7 @@ class NewTranscaction extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(10),
       child: Card(
-       child: Container(
+          child: Container(
         padding: EdgeInsets.all(10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
