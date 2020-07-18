@@ -14,7 +14,7 @@ class TransactionList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      // loop through the list of transactions by using map()
+      // loop through the list of transactions
         children: transaction.map((tx) {
       return Card(
           child: Row(
@@ -51,6 +51,7 @@ class TransactionList extends StatelessWidget {
           )
         ],
       ));
-    }).toList());
+    }
+    ).toList());
   }
 }
