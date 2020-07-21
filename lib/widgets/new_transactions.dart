@@ -44,6 +44,7 @@ class _NewTranscactionState extends State<NewTranscaction> {
     return Container(
       padding: EdgeInsets.all(10),
       child: Card(
+        elevation: 5,
           child: Container(
         padding: EdgeInsets.all(10),
         child: Column(
@@ -71,7 +72,8 @@ class _NewTranscactionState extends State<NewTranscaction> {
             ),
           ],
         ),
-      )),
-    );
+      )
+    ),
+  );
   }
 }
