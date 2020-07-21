@@ -15,7 +15,27 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.purple,
         // alternative color
         // fallback color
-        accentColor: Colors.amber, 
+        accentColor: Colors.amber,
+        // using quicksand font globally
+        fontFamily: "Quicksand",
+        // this is used for any where in the app that wants to use it
+        // we use them in our Text() widgets for example for the style 
+        textTheme: ThemeData.light().textTheme.copyWith(
+          title: TextStyle(
+            fontFamily: "OpenSans",
+            fontWeight: FontWeight.bold,
+            fontSize: 20
+          )
+        ),
+        // all text theme in app bar will use this globally
+        appBarTheme: AppBarTheme(
+          textTheme: ThemeData.light().textTheme.copyWith(
+            title: TextStyle(
+              fontFamily: 'OpenSans', fontSize: 20,
+              fontWeight: FontWeight.bold
+                  )
+                )
+              )
       ),
       home: MyHomePage(),
     );
@@ -65,23 +85,24 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
           appBar: new AppBar(
-            title: Text("Personal Expenses"),
+            title: Text(
+              "Personal Expenses"),
             actions: <Widget>[
               IconButton(
                   icon: Icon(Icons.add),
                   onPressed: () => _startProcessOfAddingTransaction(context)),
             ],
           ),
-          body: ListView(
-            children: <Widget>[
-              Column(
-                // most important when using columns and rows
-                // mainAxisAlignment: MainAxisAlignment.spaceAround,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[TransactionList(_transactionList)],
-              ),
-            ],
-          ),
+            body: SingleChildScrollView( 
+                    child: Column(
+                  // most important when using columns and rows
+                  // mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                    TransactionList(_transactionList)
+                    ],
+                ),
+              ),  
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerDocked,
           floatingActionButton: FloatingActionButton(
