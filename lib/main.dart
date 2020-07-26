@@ -1,16 +1,15 @@
+import 'package:expenses_app/widgets/chart.dart';
 import 'package:expenses_app/widgets/new_transactions.dart';
-import 'package:expenses_app/widgets/transaction_list.dart';
 import 'package:flutter/material.dart';
-
 import 'model/transaction.dart';
-
+import './widgets/chart.dart';
+import './widgets/transaction_list.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: "Personal Expenses", 
       theme: ThemeData(
         primarySwatch: Colors.purple,
         // alternative color
@@ -47,9 +46,20 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
   // list of transactions
   final List<Transaction> _transactionList = [];
+
+class _MyHomePageState extends State<MyHomePage> {
+List<Transaction> get _recentTranactionsInLastWeek {
+  // lets you run a function on each element in the list
+  return _transactionList.where((transactions) {
+    return transactions.date.isAfter(
+      DateTime.now().subtract(
+        Duration(days: 7),
+      ),
+    );
+  }).toList();
+}
 
 // creates a new transaction
   void _addNewTransaction(String title, double amount) {
@@ -99,6 +109,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   // mainAxisAlignment: MainAxisAlignment.spaceAround,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
+                    Chart(_recentTranactionsInLastWeek),
                     TransactionList(_transactionList)
                     ],
                 ),
