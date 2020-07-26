@@ -43,7 +43,7 @@ class TransactionList extends StatelessWidget {
             : ListView.builder(
               itemBuilder: (context, index) {
                 return Card(
-                    child: Row(
+                  child: Row(
                   children: <Widget>[
                     Container(
                       margin: EdgeInsets.symmetric(
@@ -57,7 +57,7 @@ class TransactionList extends StatelessWidget {
                       padding: EdgeInsets.all(10),
                       child: Text(
                         // limits to two decimals places
-                        '${transaction[index].amount.toStringAsFixed(2)}',
+                        '${transaction[index].amount}',
                         style: Theme.of(context).textTheme.headline6,
                       ),
                     ),
@@ -65,7 +65,7 @@ class TransactionList extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          transaction[index].amount.toString(),
+                          transaction[index].title,
                           style: Theme.of(context).textTheme.headline6,
                         ),
                         Text(
