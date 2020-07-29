@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../model/transaction.dart';
+import '../widgets/chart_bar.dart';
 
 /*
   Basic Chart
@@ -36,7 +37,20 @@ class Chart extends StatelessWidget {
       /*
        dateFormat.E() gives us shortcut for the weekday
       */
-      return {'day': DateFormat.E().format(weekDay), "amount": totalSum};
+      return {
+        'day': DateFormat.E().format(weekDay).substring(0, 1),
+        "amount": totalSum
+      };
+    });
+  }
+
+  double get maxSpending {
+    // changes a list to another type based on logic passed into the function
+    // first paramter is initial value
+    // second argument is the currently calculated sum
+    // third is the element we are looking
+    return groupedTransactionsValues.fold(0.0, (sum, currElement) {
+      return sum + currElement['amount'];
     });
   }
 
@@ -47,7 +61,15 @@ class Chart extends StatelessWidget {
       elevation: 6,
       margin: EdgeInsets.all(10),
       child: Row(
-        children: <Widget>[],
+        // widget for bar is created here
+        children: groupedTransactionsValues.map((data) {
+          return ChartBar(
+               data['day'],
+               data['amount'],
+               // this was causing an error since if we don't have any transactions
+               // we dividie by 0 which is invalid
+              maxSpending == 0.0 ? 0.0 : (data['amount'] as double) / maxSpending);
+        }).toList(),
         // holds the 7 bars for the days
       ),
     );
