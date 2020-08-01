@@ -17,7 +17,6 @@ class TransactionList extends StatelessWidget {
         height: 300,
         child: transaction.isEmpty
             ? Column(
-                // loop through the list of transactions
                 children: <Widget>[
                   Text(
                     "No transactions added yet",
@@ -40,7 +39,9 @@ class TransactionList extends StatelessWidget {
                   )
                 ],
               )
-            : ListView.builder(
+            :
+            // here we display the list if we have transactions 
+            ListView.builder(
               itemBuilder: (context, index) {
                 return Card(
                   child: Row(
@@ -82,6 +83,7 @@ class TransactionList extends StatelessWidget {
                 )
                 );
               },
+              // gives us the length of the items.
               itemCount: transaction.length,
               )
             );
