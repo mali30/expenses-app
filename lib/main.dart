@@ -50,6 +50,7 @@ class MyHomePage extends StatefulWidget {
   final List<Transaction> _transactionList = [];
 
 class _MyHomePageState extends State<MyHomePage> {
+
 List<Transaction> get _recentTranactionsInLastWeek {
   // lets you run a function on each element in the list
   return _transactionList.where((transactions) {
@@ -84,6 +85,7 @@ List<Transaction> get _recentTranactionsInLastWeek {
           // added this so model doesn't close when it's tapped
           return GestureDetector(
               onTap: () {}, 
+              // widget to show new transaction
               child: NewTranscaction(_addNewTransaction),
               // catch tap event and handle it
               behavior: HitTestBehavior.opaque,
