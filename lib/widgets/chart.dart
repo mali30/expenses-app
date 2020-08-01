@@ -60,17 +60,28 @@ class Chart extends StatelessWidget {
     return Card(
       elevation: 6,
       margin: EdgeInsets.all(10),
-      child: Row(
-        // widget for bar is created here
-        children: groupedTransactionsValues.map((data) {
-          return ChartBar(
-               data['day'],
-               data['amount'],
-               // this was causing an error since if we don't have any transactions
-               // we dividie by 0 which is invalid
-              maxSpending == 0.0 ? 0.0 : (data['amount'] as double) / maxSpending);
-        }).toList(),
-        // holds the 7 bars for the days
+      // if you only need padding, dont wrap with Container
+      // instead use Container
+      child: Padding(
+        padding: EdgeInsets.all(10),
+              child: Row(
+          // adds space between bars
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          // widget for bar is created here
+          children: groupedTransactionsValues.map((data) {
+            return Flexible(
+              // makes child have same space
+              fit: FlexFit.tight,
+                        child: ChartBar(
+                   data['day'],
+                   data['amount'],
+                   // this was causing an error since if we don't have any transactions
+                   // we divide by 0 which is invalid
+                  maxSpending == 0.0 ? 0.0 : (data['amount'] as double) / maxSpending),
+            );
+          }).toList(),
+          // holds the 7 bars for the days
+        ),
       ),
     );
   }
