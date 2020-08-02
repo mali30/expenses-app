@@ -24,6 +24,9 @@ class MyApp extends StatelessWidget {
             fontFamily: "OpenSans",
             fontWeight: FontWeight.bold,
             fontSize: 20
+          ),
+          button: TextStyle(
+            color: Colors.white
           )
         ),
         // all text theme in app bar will use this globally
