@@ -14,7 +14,14 @@ class ChartBar extends StatelessWidget {
       children: <Widget>[
         // forces child into avialble space
         // in our case makes text keep original size
-        FittedBox(child: Text('\$${spendingAmount.toStringAsFixed(0)}')),
+        Container(
+          // this makes bars align all across
+          height: 20,
+          child: FittedBox(
+            child: Text(
+              '\$${spendingAmount.toStringAsFixed(2)}')
+              )
+            ),
         SizedBox(
           height: 4,
         ),
