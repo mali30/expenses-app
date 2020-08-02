@@ -41,7 +41,8 @@ class Chart extends StatelessWidget {
         'day': DateFormat.E().format(weekDay).substring(0, 1),
         "amount": totalSum
       };
-    });
+      // gives us reversed list 
+    }).reversed.toList();
   }
 
   double get maxSpending {
@@ -61,7 +62,7 @@ class Chart extends StatelessWidget {
       elevation: 6,
       margin: EdgeInsets.all(10),
       // if you only need padding, dont wrap with Container
-      // instead use Container
+      // instead use Padding
       child: Padding(
         padding: EdgeInsets.all(10),
               child: Row(
