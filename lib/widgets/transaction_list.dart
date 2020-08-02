@@ -32,18 +32,52 @@ class TransactionList extends StatelessWidget {
                 the image in a container and set the height.
                 */
                     height: 200,
-                    child: Image.asset(
-                      'assets/images/waiting.png',
-                        fit: BoxFit.cover
-                        ),
+                    child: Image.asset('assets/images/waiting.png',
+                        fit: BoxFit.cover),
                   )
                 ],
               )
             :
-            // here we display the list if we have transactions 
+            // here we display the list if we have transactions
             ListView.builder(
-              itemBuilder: (context, index) {
-                return Card(
+                itemBuilder: (context, index) {
+                  return Card(
+                    margin: EdgeInsets.symmetric(
+                      vertical: 8,
+                      horizontal: 5
+                  
+                    ),
+                    elevation: 5,
+                      child: ListTile(
+                      // widget thats position at the beginning
+                      leading: CircleAvatar(
+                        // how round it is
+                        radius: 30,
+                        child: Padding(
+                          padding: EdgeInsets.all(6),
+                          child: FittedBox(
+                          child: Text(
+                              '\$${transaction[index].amount}'
+                            ),
+                          ),
+                        )
+                      ) ,
+                      title: Text(
+                        transaction[index].title,
+                        style: Theme.of(context).textTheme.headline6,
+                      ),
+                      // text shown below the title
+                      subtitle: Text(DateFormat.yMMMd().format(transaction[index].date)
+                      ),
+                    
+
+                    ),
+                  );
+                  /**
+                 * What we are gonna do now is transition to using a ListTitle() widget
+                 * This works great when you need to use lists and it comes pre-configured
+                 * gonna leave this here just for reference.
+                   return Card(
                   child: Row(
                   children: <Widget>[
                     Container(
@@ -82,10 +116,10 @@ class TransactionList extends StatelessWidget {
                   ],
                 )
                 );
-              },
-              // gives us the length of the items.
-              itemCount: transaction.length,
-              )
-            );
+                 */
+                },
+                // gives us the length of the items.
+                itemCount: transaction.length,
+              ));
   }
 }
