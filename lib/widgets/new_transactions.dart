@@ -65,10 +65,26 @@ class _NewTranscactionState extends State<NewTranscaction> {
               // the underscore means we get an argument but we don't care and don't use it
               onSubmitted: (_) => submitData(),
             ),
-            FlatButton(
+            Container(
+              height: 70,
+                child: Row(
+                children: <Widget>[
+                  Text("No Date Choosen!"),
+                  FlatButton(
+                    textColor: Theme.of(context).primaryColor,
+                    child: Text("Choose Date", 
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),),
+                  onPressed: null,
+                  )
+              ],),
+            ),
+            RaisedButton(
               child: Text("Add Transaction"),
+              color: Theme.of(context).primaryColor,
               // gets this color from the theme
-              textColor: Theme.of(context).accentColor,
+              textColor: Theme.of(context).textTheme.button.color,
               onPressed: () => submitData(),
             ),
           ],
