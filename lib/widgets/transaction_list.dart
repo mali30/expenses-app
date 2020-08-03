@@ -8,8 +8,9 @@ import 'package:intl/intl.dart';
  */
 class TransactionList extends StatelessWidget {
   final List<Transaction> transaction;
+  Function deleteATransactionFromList;
 
-  TransactionList(this.transaction);
+  TransactionList(this.transaction, this.deleteATransactionFromList);
 
   @override
   Widget build(BuildContext context) {
@@ -33,8 +34,7 @@ class TransactionList extends StatelessWidget {
                 */
                     height: 200,
                     child: Image.asset('assets/images/waiting.png',
-                        fit: BoxFit.cover
-                        ),
+                        fit: BoxFit.cover),
                   )
                 ],
               )
@@ -43,35 +43,35 @@ class TransactionList extends StatelessWidget {
             ListView.builder(
                 itemBuilder: (context, index) {
                   return Card(
-                    margin: EdgeInsets.symmetric(
-                      vertical: 8,
-                      horizontal: 5
-                  
-                    ),
+                    margin: EdgeInsets.symmetric(vertical: 8, horizontal: 5),
                     elevation: 5,
-                      child: ListTile(
+                    child: ListTile(
                       // widget thats position at the beginning
                       leading: CircleAvatar(
-                        // how round it is
-                        radius: 30,
-                        child: Padding(
-                          padding: EdgeInsets.all(6),
-                          child: FittedBox(
-                          child: Text(
-                              '\$${transaction[index].amount}'
+                          // how round it is
+                          radius: 30,
+                          child: Padding(
+                            padding: EdgeInsets.all(6),
+                            child: FittedBox(
+                              child: Text('\$${transaction[index].amount}'),
                             ),
-                          ),
-                        )
-                      ) ,
+                          )
+                        ),
                       title: Text(
                         transaction[index].title,
                         style: Theme.of(context).textTheme.headline6,
                       ),
                       // text shown below the title
-                      subtitle: Text(DateFormat.yMMMd().format(transaction[index].date)
+                      subtitle: Text(
+                          DateFormat.yMMMd().format(transaction[index].date)),
+                      trailing: IconButton(
+                        icon: Icon(
+                          Icons.delete,
+                          color: Theme.of(context).errorColor,
+                        ),
+                        // wrap into anonymous function since it takes an argument
+                        onPressed: () => deleteATransactionFromList(transaction[index].uniqueId),
                       ),
-                    
-
                     ),
                   );
                   /**
@@ -121,6 +121,7 @@ class TransactionList extends StatelessWidget {
                 },
                 // gives us the length of the items.
                 itemCount: transaction.length,
-              ));
+              )
+            );
   }
 }
