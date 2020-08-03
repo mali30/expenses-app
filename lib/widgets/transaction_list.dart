@@ -15,7 +15,7 @@ class TransactionList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: 300,
+        height: 450,
         child: transaction.isEmpty
             ? Column(
                 children: <Widget>[
@@ -40,6 +40,7 @@ class TransactionList extends StatelessWidget {
               )
             :
             // here we display the list if we have transactions
+            // remember listView has infinite height
             ListView.builder(
                 itemBuilder: (context, index) {
                   return Card(
