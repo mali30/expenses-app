@@ -66,12 +66,13 @@ List<Transaction> get _recentTranactionsInLastWeek {
 }
 
 // creates a new transaction
-  void _addNewTransaction(String title, double amount) {
+  void _addNewTransaction(String title, double amount, DateTime chosenDate) {
     final newTransaction = Transaction(
         title: title,
         amount: amount,
-        date: DateTime.now(),
-        uniqueId: DateTime.now().millisecondsSinceEpoch.toString());
+        date: chosenDate,
+        uniqueId: DateTime.now().millisecondsSinceEpoch.toString(),
+        );
 
 // adding new elements to our list by using setState()
     setState(() {
