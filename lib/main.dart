@@ -118,7 +118,10 @@ class _MyHomePageState extends State<MyHomePage> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               Chart(_recentTranactionsInLastWeek),
-              TransactionList(_transactionList , _deleteATransaction)
+              // wrapping it widget so list of transactiosn take up all the height it can get
+             // Expanded(
+             TransactionList(_transactionList , _deleteATransaction)
+              //)
             ],
           ),
         ),
