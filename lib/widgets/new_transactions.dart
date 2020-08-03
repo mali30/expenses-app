@@ -23,10 +23,13 @@ class _NewTranscactionState extends State<NewTranscaction> {
   DateTime _selectedDate;
 
   void _submitData() {
+    if (_amountController.text.isEmpty == null) {
+      return null;
+    }
     final entertedTitle = _titleController.text;
     final enteredAmount = double.parse(_amountController.text);
 
-    if (entertedTitle.isEmpty || enteredAmount <= 0) {
+    if (entertedTitle.isEmpty || enteredAmount <= 0 || _selectedDate == null) {
       return;
     }
 
@@ -34,6 +37,7 @@ class _NewTranscactionState extends State<NewTranscaction> {
     widget.addNewTransaction(
       entertedTitle,
       enteredAmount,
+      _selectedDate
     );
 
     // Now we use navigator to close the model.
@@ -93,19 +97,18 @@ class _NewTranscactionState extends State<NewTranscaction> {
                     children: <Widget>[
                       // pushes date picker and date all the way to right and left
                       Expanded(
-                          child: Text( _selectedDate == null  ? "No Date Chosen"  : 
-                         'Picked Date :  ${DateFormat.yMd().format(_selectedDate)}'
-                             ),
+                        child: Text(_selectedDate == null
+                            ? "No Date Chosen"
+                            : 'Picked Date :  ${DateFormat.yMd().format(_selectedDate)}'),
                       ),
                       FlatButton(
                         textColor: Theme.of(context).primaryColor,
                         child: Text(
-                                "Choose Date",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              )
-                           ,
+                          "Choose Date",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                         onPressed: _presentDatePicker,
                       )
                     ],
