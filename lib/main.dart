@@ -123,14 +123,14 @@ class _MyHomePageState extends State<MyHomePage> {
               Container(
                 // the chart takes up 40% of the screen height now
                 height: (MediaQuery.of(context).size.height - appBar.preferredSize.height
-                - MediaQuery.of(context).padding.top) * 0.4,
+                - MediaQuery.of(context).padding.top) * 0.3,
                 child: Chart(_recentTranactionsInLastWeek)),
               // wrapping it widget so list of transactiosn take up all the height it can get
              // Expanded(
              Container(
                // The list of transactions take up 60% of the screen now
                height: (MediaQuery.of(context).size.height - appBar.preferredSize.height
-               - MediaQuery.of(context).padding.top ) * 0.6,
+               - MediaQuery.of(context).padding.top ) * 0.7,
                child: TransactionList(_transactionList , _deleteATransaction))
               //)
             ],
