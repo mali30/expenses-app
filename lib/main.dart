@@ -100,27 +100,38 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: new AppBar(
+      final appBar =  new AppBar(
           title: Text("Personal Expenses"),
           actions: <Widget>[
             IconButton(
                 icon: Icon(Icons.add),
                 onPressed: () => _startProcessOfAddingTransaction(context)),
           ],
-        ),
+        );
+    return Scaffold(
+        appBar: appBar,
         body: SingleChildScrollView(
           child: Column(
             // most important when using columns and rows
             // mainAxisAlignment: MainAxisAlignment.spaceAround,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              Chart(_recentTranactionsInLastWeek),
+              Container(
+                // the chart takes up 40% of the screen height now
+                height: (MediaQuery.of(context).size.height - appBar.preferredSize.height
+                - MediaQuery.of(context).padding.top) * 0.4,
+                child: Chart(_recentTranactionsInLastWeek)),
               // wrapping it widget so list of transactiosn take up all the height it can get
              // Expanded(
-             TransactionList(_transactionList , _deleteATransaction)
+             Container(
+               // The list of transactions take up 60% of the screen now
+               height: (MediaQuery.of(context).size.height - appBar.preferredSize.height
+               - MediaQuery.of(context).padding.top ) * 0.6,
+               child: TransactionList(_transactionList , _deleteATransaction))
               //)
             ],
           ),
