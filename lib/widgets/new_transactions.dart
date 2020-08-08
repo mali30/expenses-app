@@ -34,11 +34,7 @@ class _NewTranscactionState extends State<NewTranscaction> {
     }
 
     // take the values and pass it to the function.
-    widget.addNewTransaction(
-      entertedTitle,
-      enteredAmount,
-      _selectedDate
-    );
+    widget.addNewTransaction(entertedTitle, enteredAmount, _selectedDate);
 
     // Now we use navigator to close the model.
     // context -> gives navigator metadata. so it knowns what to close

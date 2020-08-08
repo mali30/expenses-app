@@ -154,26 +154,26 @@ class _MyHomePageState extends State<MyHomePage> {
                           });
                         }),
                   ],
-                ),                // container for chart
-                if(!isLandScapeMode)
-                    Container(
-                        // the chart takes up 70% of the screen height now
-                        height: (MediaQuery.of(context).size.height -
-                                appBar.preferredSize.height -
-                                MediaQuery.of(context).padding.top) *
-                            0.7,
-                        child: Chart(_recentTranactionsInLastWeek)
-                        ),
-                if(!isLandScapeMode) listOfTransactions,
-                if(isLandScapeMode) _showChart
+                ), // container for chart
+              if (!isLandScapeMode)
+                Container(
+                    // the chart takes up 70% of the screen height now
+                    height: (MediaQuery.of(context).size.height -
+                            appBar.preferredSize.height -
+                            MediaQuery.of(context).padding.top) *
+                        0.7,
+                    child: Chart(_recentTranactionsInLastWeek)),
+              if (!isLandScapeMode)
+                listOfTransactions,
+              if (isLandScapeMode)
+                _showChart
                     ? Container(
                         // the chart takes up 70% of the screen height now
                         height: (MediaQuery.of(context).size.height -
                                 appBar.preferredSize.height -
                                 MediaQuery.of(context).padding.top) *
                             0.7,
-                        child: Chart(_recentTranactionsInLastWeek)
-                        )
+                        child: Chart(_recentTranactionsInLastWeek))
                     : listOfTransactions
             ],
           ),

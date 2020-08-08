@@ -16,15 +16,15 @@ class ChartBar extends StatelessWidget {
             // forces child into avialble space
             // in our case makes text keep original size
             Container(
-              // max height chart bar can take
+                // max height chart bar can take
                 height: constraint.maxHeight * 0.15,
                 child: FittedBox(
                     child: Text('\$${spendingAmount.toStringAsFixed(2)}'))),
             SizedBox(
-                height: constraint.maxHeight * 0.05,
+              height: constraint.maxHeight * 0.05,
             ),
             Container(
-                height: constraint.maxHeight * 0.6,
+              height: constraint.maxHeight * 0.6,
               width: 10,
               // allows you to place elements on top of each other
               // really overlapping
@@ -52,15 +52,12 @@ class ChartBar extends StatelessWidget {
             ),
             // represents the little space between the day and the bar
             SizedBox(
-                height: constraint.maxHeight * 0.05,
+              height: constraint.maxHeight * 0.05,
             ),
             // the day of the week
             Container(
                 height: constraint.maxHeight * 0.15,
-                child: FittedBox(
-                  child: Text(label)
-                  )
-                )
+                child: FittedBox(child: Text(label)))
           ],
         );
       },

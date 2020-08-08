@@ -41,7 +41,7 @@ class Chart extends StatelessWidget {
         'day': DateFormat.E().format(weekDay).substring(0, 1),
         "amount": totalSum
       };
-      // gives us reversed list 
+      // gives us reversed list
     }).reversed.toList();
   }
 
@@ -57,7 +57,6 @@ class Chart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(groupedTransactionsValues);
     return Card(
       elevation: 6,
       margin: EdgeInsets.all(10),
@@ -65,7 +64,7 @@ class Chart extends StatelessWidget {
       // instead use Padding
       child: Padding(
         padding: EdgeInsets.all(10),
-              child: Row(
+        child: Row(
           // adds space between bars
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           // widget for bar is created here
@@ -73,12 +72,14 @@ class Chart extends StatelessWidget {
             return Flexible(
               // makes child have same space
               fit: FlexFit.tight,
-                        child: ChartBar(
-                   data['day'],
-                   data['amount'],
-                   // this was causing an error since if we don't have any transactions
-                   // we divide by 0 which is invalid
-                  maxSpending == 0.0 ? 0.0 : (data['amount'] as double) / maxSpending),
+              child: ChartBar(
+                  data['day'],
+                  data['amount'],
+                  // this was causing an error since if we don't have any transactions
+                  // we divide by 0 which is invalid
+                  maxSpending == 0.0
+                      ? 0.0
+                      : (data['amount'] as double) / maxSpending),
             );
           }).toList(),
           // holds the 7 bars for the days
