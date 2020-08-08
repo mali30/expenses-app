@@ -114,6 +114,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final isLandScapeMode =
+        MediaQuery.of(context).orientation == Orientation.landscape;
     final appBar = new AppBar(
       title: Text("Personal Expenses"),
       actions: <Widget>[
@@ -122,6 +124,14 @@ class _MyHomePageState extends State<MyHomePage> {
             onPressed: () => _startProcessOfAddingTransaction(context)),
       ],
     );
+
+    final listOfTransactions = Container(
+        // The list of transactions take up 60% of the screen now
+        height: (MediaQuery.of(context).size.height -
+                appBar.preferredSize.height -
+                MediaQuery.of(context).padding.top) *
+            0.7,
+        child: TransactionList(_transactionList, _deleteATransaction));
     return Scaffold(
         appBar: appBar,
         body: SingleChildScrollView(
@@ -130,36 +140,41 @@ class _MyHomePageState extends State<MyHomePage> {
             // mainAxisAlignment: MainAxisAlignment.spaceAround,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text("Show Chart"),
-                  Switch(
-                      value: _showChart,
-                      onChanged: (boolValue) {
-                        setState(() {
-                          _showChart = boolValue;
-                        }
-                        );
-                      }),
-                ],
-              ),
-              // container for chart
-             _showChart == true ? Container(
-                  // the chart takes up 30% of the screen height now
-                  height: (MediaQuery.of(context).size.height -
-                          appBar.preferredSize.height -
-                          MediaQuery.of(context).padding.top) *
-                      0.3,
-                  child: Chart(_recentTranactionsInLastWeek)
-                ) : Container (
-                  // The list of transactions take up 60% of the screen now
-                  height: (MediaQuery.of(context).size.height -
-                          appBar.preferredSize.height -
-                          MediaQuery.of(context).padding.top) *
-                      0.7,
-                  child: TransactionList(_transactionList, _deleteATransaction))
-              //)
+              // checking if in landscape mode
+              if (isLandScapeMode)
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text("Show Chart"),
+                    Switch(
+                        value: _showChart,
+                        onChanged: (boolValue) {
+                          setState(() {
+                            _showChart = boolValue;
+                          });
+                        }),
+                  ],
+                ),                // container for chart
+                if(!isLandScapeMode)
+                    Container(
+                        // the chart takes up 70% of the screen height now
+                        height: (MediaQuery.of(context).size.height -
+                                appBar.preferredSize.height -
+                                MediaQuery.of(context).padding.top) *
+                            0.7,
+                        child: Chart(_recentTranactionsInLastWeek)
+                        ),
+                if(!isLandScapeMode) listOfTransactions,
+                if(isLandScapeMode) _showChart
+                    ? Container(
+                        // the chart takes up 70% of the screen height now
+                        height: (MediaQuery.of(context).size.height -
+                                appBar.preferredSize.height -
+                                MediaQuery.of(context).padding.top) *
+                            0.7,
+                        child: Chart(_recentTranactionsInLastWeek)
+                        )
+                    : listOfTransactions
             ],
           ),
         ),
