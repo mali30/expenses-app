@@ -8,16 +8,14 @@ import './widgets/transaction_list.dart';
 
 void main() {
   // ensures it works on all devices
-  WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setPreferredOrientations(
-    [
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
-    ]
-  );
-  runApp(
-    MyApp()
-  );
+  // WidgetsFlutterBinding.ensureInitialized();
+  // SystemChrome.setPreferredOrientations(
+  //   [
+  //     DeviceOrientation.portraitUp,
+  //     DeviceOrientation.portraitDown,
+  //   ]
+  // );
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -60,6 +58,7 @@ class MyHomePage extends StatefulWidget {
 
 // list of transactions
 final List<Transaction> _transactionList = [];
+bool _showChart = false;
 
 class _MyHomePageState extends State<MyHomePage> {
   List<Transaction> get _recentTranactionsInLastWeek {
@@ -113,18 +112,16 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-
-
   @override
   Widget build(BuildContext context) {
-      final appBar =  new AppBar(
-          title: Text("Personal Expenses"),
-          actions: <Widget>[
-            IconButton(
-                icon: Icon(Icons.add),
-                onPressed: () => _startProcessOfAddingTransaction(context)),
-          ],
-        );
+    final appBar = new AppBar(
+      title: Text("Personal Expenses"),
+      actions: <Widget>[
+        IconButton(
+            icon: Icon(Icons.add),
+            onPressed: () => _startProcessOfAddingTransaction(context)),
+      ],
+    );
     return Scaffold(
         appBar: appBar,
         body: SingleChildScrollView(
@@ -133,18 +130,35 @@ class _MyHomePageState extends State<MyHomePage> {
             // mainAxisAlignment: MainAxisAlignment.spaceAround,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              Container(
-                // the chart takes up 30% of the screen height now
-                height: (MediaQuery.of(context).size.height - appBar.preferredSize.height
-                - MediaQuery.of(context).padding.top) * 0.3,
-                child: Chart(_recentTranactionsInLastWeek)),
-              // wrapping it widget so list of transactiosn take up all the height it can get
-             // Expanded(
-             Container(
-               // The list of transactions take up 60% of the screen now
-               height: (MediaQuery.of(context).size.height - appBar.preferredSize.height
-               - MediaQuery.of(context).padding.top ) * 0.7,
-               child: TransactionList(_transactionList , _deleteATransaction))
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text("Show Chart"),
+                  Switch(
+                      value: _showChart,
+                      onChanged: (boolValue) {
+                        setState(() {
+                          _showChart = boolValue;
+                        }
+                        );
+                      }),
+                ],
+              ),
+              // container for chart
+             _showChart == true ? Container(
+                  // the chart takes up 30% of the screen height now
+                  height: (MediaQuery.of(context).size.height -
+                          appBar.preferredSize.height -
+                          MediaQuery.of(context).padding.top) *
+                      0.3,
+                  child: Chart(_recentTranactionsInLastWeek)
+                ) : Container (
+                  // The list of transactions take up 60% of the screen now
+                  height: (MediaQuery.of(context).size.height -
+                          appBar.preferredSize.height -
+                          MediaQuery.of(context).padding.top) *
+                      0.7,
+                  child: TransactionList(_transactionList, _deleteATransaction))
               //)
             ],
           ),
