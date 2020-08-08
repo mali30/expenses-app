@@ -1,11 +1,24 @@
 import 'package:expenses_app/widgets/chart.dart';
 import 'package:expenses_app/widgets/new_transactions.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'model/transaction.dart';
 import './widgets/chart.dart';
 import './widgets/transaction_list.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  // ensures it works on all devices
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations(
+    [
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]
+  );
+  runApp(
+    MyApp()
+  );
+}
 
 class MyApp extends StatelessWidget {
   @override
@@ -121,7 +134,7 @@ class _MyHomePageState extends State<MyHomePage> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               Container(
-                // the chart takes up 40% of the screen height now
+                // the chart takes up 30% of the screen height now
                 height: (MediaQuery.of(context).size.height - appBar.preferredSize.height
                 - MediaQuery.of(context).padding.top) * 0.3,
                 child: Chart(_recentTranactionsInLastWeek)),
