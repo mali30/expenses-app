@@ -65,61 +65,69 @@ class _NewTranscactionState extends State<NewTranscaction> {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(10),
-      child: Card(
-          elevation: 5,
-          child: Container(
-            padding: EdgeInsets.all(10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: <Widget>[
-                // lets us input text
-                TextField(
-                  // customizing the text field
-                  decoration: InputDecoration(labelText: "Title"),
-                  controller: _titleController,
-                  onSubmitted: (_) => _submitData(),
-                ),
-                TextField(
-                  decoration: InputDecoration(labelText: "Amount"),
-                  controller: _amountController,
-                  keyboardType: TextInputType.numberWithOptions(decimal: true),
-                  // we dont use the value but it's their just to make flutter happy
-                  // the underscore means we get an argument but we don't care and don't use it
-                  onSubmitted: (_) => _submitData(),
-                ),
-                Container(
-                  height: 70,
-                  child: Row(
-                    children: <Widget>[
-                      // pushes date picker and date all the way to right and left
-                      Expanded(
-                        child: Text(_selectedDate == null
-                            ? "No Date Chosen"
-                            : 'Picked Date :  ${DateFormat.yMd().format(_selectedDate)}'),
-                      ),
-                      FlatButton(
-                        textColor: Theme.of(context).primaryColor,
-                        child: Text(
-                          "Choose Date",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        onPressed: _presentDatePicker,
-                      )
-                    ],
+      child: SingleChildScrollView(
+            child: Card(
+            elevation: 5,
+            child: Container(
+              padding: EdgeInsets.only(
+                top: 10,
+                left: 10,
+                right: 10,
+                // gives us info of something that is lapping into our view
+                bottom: MediaQuery.of(context).viewInsets.bottom + 10,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: <Widget>[
+                  // lets us input text
+                  TextField(
+                    // customizing the text field
+                    decoration: InputDecoration(labelText: "Title"),
+                    controller: _titleController,
+                    onSubmitted: (_) => _submitData(),
                   ),
-                ),
-                RaisedButton(
-                  child: Text("Add Transaction"),
-                  color: Theme.of(context).primaryColor,
-                  // gets this color from the theme
-                  textColor: Theme.of(context).textTheme.button.color,
-                  onPressed: () => _submitData(),
-                ),
-              ],
-            ),
-          )),
+                  TextField(
+                    decoration: InputDecoration(labelText: "Amount"),
+                    controller: _amountController,
+                    keyboardType: TextInputType.numberWithOptions(decimal: true),
+                    // we dont use the value but it's their just to make flutter happy
+                    // the underscore means we get an argument but we don't care and don't use it
+                    onSubmitted: (_) => _submitData(),
+                  ),
+                  Container(
+                    height: 70,
+                    child: Row(
+                      children: <Widget>[
+                        // pushes date picker and date all the way to right and left
+                        Expanded(
+                          child: Text(_selectedDate == null
+                              ? "No Date Chosen"
+                              : 'Picked Date :  ${DateFormat.yMd().format(_selectedDate)}'),
+                        ),
+                        FlatButton(
+                          textColor: Theme.of(context).primaryColor,
+                          child: Text(
+                            "Choose Date",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          onPressed: _presentDatePicker,
+                        )
+                      ],
+                    ),
+                  ),
+                  RaisedButton(
+                    child: Text("Add Transaction"),
+                    color: Theme.of(context).primaryColor,
+                    // gets this color from the theme
+                    textColor: Theme.of(context).textTheme.button.color,
+                    onPressed: () => _submitData(),
+                  ),
+                ],
+              ),
+            )),
+      ),
     );
   }
 }
