@@ -114,8 +114,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final mediaQuery = MediaQuery.of(context);
     final isLandScapeMode =
-        MediaQuery.of(context).orientation == Orientation.landscape;
+            mediaQuery.orientation == Orientation.landscape;
     final appBar = new AppBar(
       title: Text("Personal Expenses"),
       actions: <Widget>[
@@ -127,9 +128,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
     final listOfTransactions = Container(
         // The list of transactions take up 60% of the screen now
-        height: (MediaQuery.of(context).size.height -
+        height: (mediaQuery.size.height -
                 appBar.preferredSize.height -
-                MediaQuery.of(context).padding.top) *
+                mediaQuery.padding.top) *
             0.7,
         child: TransactionList(_transactionList, _deleteATransaction));
     return Scaffold(
@@ -158,9 +159,9 @@ class _MyHomePageState extends State<MyHomePage> {
               if (!isLandScapeMode)
                 Container(
                     // the chart takes up 70% of the screen height now
-                    height: (MediaQuery.of(context).size.height -
+                    height: (mediaQuery.size.height -
                             appBar.preferredSize.height -
-                            MediaQuery.of(context).padding.top) *
+                            mediaQuery.padding.top) *
                         0.3,
                     child: Chart(_recentTranactionsInLastWeek)),
               if (!isLandScapeMode)
@@ -169,9 +170,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 _showChart
                     ? Container(
                         // the chart takes up 70% of the screen height now
-                        height: (MediaQuery.of(context).size.height -
+                        height: (mediaQuery.size.height -
                                 appBar.preferredSize.height -
-                                MediaQuery.of(context).padding.top) *
+                                mediaQuery.padding.top) *
                             0.7,
                         child: Chart(_recentTranactionsInLastWeek))
                     : listOfTransactions
