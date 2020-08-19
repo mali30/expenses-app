@@ -154,7 +154,9 @@ class _MyHomePageState extends State<MyHomePage> {
             0.7,
         child: TransactionList(_transactionList, _deleteATransaction));
 
-    final bodyOfWidget =  SingleChildScrollView(
+    // wrapping in Safe Area which makes sure everything is positioned correclty
+    final bodyOfWidget =  SafeArea(
+        child: SingleChildScrollView(
           child: Column(
             // most important when using columns and rows
             // mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -165,7 +167,10 @@ class _MyHomePageState extends State<MyHomePage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Text("Show Chart"),
+                    Text(
+                      "Show Chart",
+                      // manually setting size of text for iOS
+                    style: Theme.of(context).textTheme.title),
                     // switch based on platform ios or android
                     Switch.adaptive(
                         value: _showChart,
@@ -198,7 +203,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     : listOfTransactions
             ],
           ),
-        );
+        )
+    );
     return  Platform.isIOS ? CupertinoPageScaffold(
       navigationBar: appBar ,
       child: bodyOfWidget
