@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:expenses_app/widgets/chart.dart';
 import 'package:expenses_app/widgets/new_transactions.dart';
 import 'package:flutter/material.dart';
+
 import 'package:flutter/services.dart';
 import 'model/transaction.dart';
 import './widgets/chart.dart';
@@ -114,9 +117,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    // put in a variable so I can use everywhere instead of calling directly
     final mediaQuery = MediaQuery.of(context);
-    final isLandScapeMode =
-            mediaQuery.orientation == Orientation.landscape;
+    final isLandScapeMode = mediaQuery.orientation == Orientation.landscape;
     final appBar = new AppBar(
       title: Text("Personal Expenses"),
       actions: <Widget>[
@@ -147,7 +150,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Text("Show Chart"),
-                    Switch(
+                    // switch based on platform ios or android
+                    Switch.adaptive(
                         value: _showChart,
                         onChanged: (boolValue) {
                           setState(() {
@@ -180,7 +184,10 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        floatingActionButton: FloatingActionButton(
+        // only show floating button if on android
+        floatingActionButton: Platform.isIOS ? 
+        Container() :
+         FloatingActionButton(
           child: Icon(Icons.add),
           onPressed: () => _startProcessOfAddingTransaction(context),
         ));

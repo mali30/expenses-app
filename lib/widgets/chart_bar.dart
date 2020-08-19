@@ -33,7 +33,7 @@ class ChartBar extends StatelessWidget {
                   // bottom most widget
                   // represents all of the 7 containers we see for bars
                   Container(
-                      decoration: BoxDecoration(
+                    decoration: BoxDecoration(
                     border: Border.all(color: Colors.grey, width: 1.0),
                     color: Color.fromRGBO(220, 220, 220, 1),
                     borderRadius: BorderRadius.circular(20),
