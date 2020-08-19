@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:expenses_app/widgets/chart.dart';
 import 'package:expenses_app/widgets/new_transactions.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter/services.dart';
@@ -120,12 +121,28 @@ class _MyHomePageState extends State<MyHomePage> {
     // put in a variable so I can use everywhere instead of calling directly
     final mediaQuery = MediaQuery.of(context);
     final isLandScapeMode = mediaQuery.orientation == Orientation.landscape;
-    final appBar = new AppBar(
+    // explicitly stating the type since dart can't infert that it has the preferedSize property
+    final PreferredSizeWidget appBar = Platform.isIOS ?  CupertinoNavigationBar(
+      middle: Text("Expenses App"),
+      trailing: Row(
+        // row shrinks from left to right as big as it' children
+        mainAxisSize: MainAxisSize.min ,
+        children: <Widget>[
+            GestureDetector(
+              child: Icon(
+                CupertinoIcons.add
+                ),
+              onTap: () => _startProcessOfAddingTransaction(context) ,
+            ),
+      ]),
+    )
+    : new AppBar(
       title: Text("Personal Expenses"),
       actions: <Widget>[
         IconButton(
             icon: Icon(Icons.add),
-            onPressed: () => _startProcessOfAddingTransaction(context)),
+            onPressed: () => _startProcessOfAddingTransaction(context)
+            ),
       ],
     );
 
@@ -136,9 +153,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 mediaQuery.padding.top) *
             0.7,
         child: TransactionList(_transactionList, _deleteATransaction));
-    return Scaffold(
-        appBar: appBar,
-        body: SingleChildScrollView(
+
+    final bodyOfWidget =  SingleChildScrollView(
           child: Column(
             // most important when using columns and rows
             // mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -182,7 +198,14 @@ class _MyHomePageState extends State<MyHomePage> {
                     : listOfTransactions
             ],
           ),
-        ),
+        );
+    return  Platform.isIOS ? CupertinoPageScaffold(
+      navigationBar: appBar ,
+      child: bodyOfWidget
+      )
+    :  Scaffold(
+        appBar: appBar,
+        body: bodyOfWidget,
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         // only show floating button if on android
         floatingActionButton: Platform.isIOS ? 
